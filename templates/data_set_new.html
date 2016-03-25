@@ -1,0 +1,111 @@
+{% extends "template.html" %}
+
+{% block content-header %}
+    <h1>
+        Data Set
+        <small> New Data Set</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{% url 'dataset_list' %}">Data Set</a></li>
+        <li class="active">New</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="callout callout-{% if message.tags %}{{ message.tags }}{% endif %}">
+                <h4>{{ message }}</h4>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Data Set</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form method="post">
+            {% csrf_token %}
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="name" class="col-sm-2 control-label">Name</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <label for="name" class="col-sm-2 control-label">Description</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="description" name="description"
+                                   placeholder="Description">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="driver" class="col-sm-2 control-label">Driver</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="driver" name="driver" placeholder="Driver">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label for="server" class="col-sm-2 control-label">Server</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="server" name="server" placeholder="Server">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="port" class="col-sm-2 control-label">Port</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="port" name="port" placeholder="Port">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="database" class="col-sm-2 control-label">Database</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="database" name="database"
+                                   placeholder="Database">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="user" class="col-sm-2 control-label">User</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="user" name="user" placeholder="User">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="password" class="col-sm-2 control-label">Password</label>
+
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary pull-right">Save</button>
+                <button type="button" class="btn btn-info pull-right">Test Connection</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+[
+  {
+    "model": "dqc.DataQualityDimension",
+    "pk": 1,
+    "fields": {
+      "name": "Accuracy",
+      "description": "Dimensão de Qualidade Precisão"
+    }
+  },
+  {
+    "model": "dqc.DataQualityDimension",
+    "pk": 2,
+    "fields": {
+      "name": "Completeness",
+      "description": "Dimensão de Qualidade Completude"
+    }
+  },
+  {
+    "model": "dqc.DataQualityDimension",
+    "pk": 3,
+    "fields": {
+      "name": "Consistency",
+      "description": "Dimensão de Qualidade Consistencia"
+    }
+  },
+  {
+    "model": "dqc.DataType",
+    "pk": 1,
+    "fields": {
+      "name": "String",
+      "description": "Tipo de Dado de Texto"
+    }
+  },
+  {
+    "model": "dqc.DataType",
+    "pk": 2,
+    "fields": {
+      "name": "Number",
+      "description": "Tipo de Dado Numérico"
+    }
+  },
+  {
+    "model": "dqc.DataType",
+    "pk": 3,
+    "fields": {
+      "name": "Date",
+      "description": "Tipo de Dado Temporal"
+    }
+  },
+  {
+    "model": "dqc.DataType",
+    "pk": 4,
+    "fields": {
+      "name": "Boolean",
+      "description": "Tipo de Dado Booleano"
+    }
+  },
+  {
+    "model": "dqc.DataType",
+    "pk": 5,
+    "fields": {
+      "name": "Binary",
+      "description": "Tipo de Dado Binário"
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 1,
+    "fields": {
+      "name": "IsNull",
+      "description": "O valor deve ser nulo",
+      "data_quality_dimension" : [1],
+      "data_type" : [1],
+      "method_to_call" : "is_null",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 1,
+    "fields": {
+      "name": "IsNotNull",
+      "description": "O valor não pode ser nulo",
+      "data_quality_dimension" : [2],
+      "data_type" : [1],
+      "method_to_call" : "is_not_null",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 1,
+    "fields": {
+      "name": "IsEqual",
+      "description": "O valor deve ser igual a",
+      "data_quality_dimension" : [3],
+      "data_type" : [1],
+      "method_to_call" : "is_equal",
+      "arguments_number" : 1
+    }
+  }
+]

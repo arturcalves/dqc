@@ -1,0 +1,62 @@
+{% extends "template.html" %}
+
+{% block content-header %}
+    <h1>
+        Data Set
+        <small> List Data Set</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Data Set</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="callout callout-{% if message.tags %}{{ message.tags }}{% endif %}">
+                <h4>{{ message }}</h4>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Data Sets</h3>
+
+            <a disabled="disabled" href="{%  url "dataset_new" %}" style="pointer-events: none;" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New Data Set</a>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding table-responsive">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Tables</th>
+                    <th>Columns</th>
+                    <th>Constraints</th>
+                    <th style="width: 50px">Action</th>
+                </tr>
+                {% for dataset in datasets %}
+                    <tr>
+                        <td>{{ dataset.id }}</td>
+                        <td>{{ dataset.name }}</td>
+                        <td>{{ dataset.description }}</td>
+                        <td>{{ dataset.count_tables }}</td>
+                        <td>{{ dataset.count_columns }}</td>
+                        <td>{{ dataset.count_constraints }}</td>
+                        <td><a class="btn btn-default" href="{% url 'dataset_view'  dataset.id %}">Consultar</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+{% endblock %}

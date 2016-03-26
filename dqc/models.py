@@ -135,7 +135,7 @@ class DataSetEvaluation(models.Model):
 class DataSetEvaluationProblem(models.Model):
     data_set_evaluation = models.ForeignKey(DataSetEvaluation)
     data_column_constraint = models.ForeignKey(DataColumnConstraint)
-    data_record = models.ForeignKey(DataRecord)
+    data_record = models.ForeignKey(DataRecord, null=True)
     message = models.TextField()
 
     def __str__(self):

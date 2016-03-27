@@ -91,15 +91,26 @@ def dataconstraintsfromtype(request, id):
     return JsonResponse(constraints_serialized, safe=False)
 
 
-def datacolumnconstraint_new(request):
+def datacolumnconstraint_save(request):
     if request.method == 'POST':
-        datacolumnconstraint = DataColumnConstraint(
-            data_column=DataColumn.objects.get(id=request.POST.get("datacolumn_id", "")),
-            data_validation_constraint=DataValidationConstraint.objects.get(
-                id=request.POST.get("dataconstraint_id", "")),
-            validation_schema=request.POST.get("schema", ""))
+        data_column_constraint_id = request.POST.get("datacolumnconstraint_id", "")
+        if data_column_constraint_id:
+            datacolumnconstraint = DataColumnConstraint.objects.get(id=data_column_constraint_id)
+            datacolumnconstraint.data_column = DataColumn.objects.get(
+                id=request.POST.get("column_id", ""))
+            datacolumnconstraint.data_validation_constraint = DataValidationConstraint.objects.get(
+                id=request.POST.get("validation_constraint_id", ""))
+            datacolumnconstraint.argument = request.POST.get("argument", "")
+            messages.success(request, 'DataColumnConstraint Updated')
+        else:
+            datacolumnconstraint = DataColumnConstraint(
+                data_column=DataColumn.objects.get(id=request.POST.get("column_id", "")),
+                data_validation_constraint=DataValidationConstraint.objects.get(
+                    id=request.POST.get("validation_constraint_id", "")),
+                argument=request.POST.get("argument", ""))
+            messages.success(request, 'DataColumnConstraint Inserted')
         datacolumnconstraint.save()
-        messages.success(request, 'DataColumnConstraint Inserted')
+
         return redirect('datatable_view', datacolumnconstraint.data_column.data_table.id)
     return redirect('index')
 
@@ -129,7 +140,7 @@ def __get_schema(column_constraint):
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, obj):
-        if hasattr(obj, 'isoformat'): #handles both date and datetime objects
+        if hasattr(obj, 'isoformat'):  # handles both date and datetime objects
             return obj.isoformat()
         else:
             return json.JSONEncoder.default(self, obj)
@@ -138,15 +149,14 @@ class JSONEncoder(json.JSONEncoder):
 def evaluation_new(request, id):
     data_set = DataSet.objects.get(id=id)
 
-    #cria o DataSetEvaluation
+    # cria o DataSetEvaluation
     ev = DataSetEvaluation(data_set=data_set, found_problems=0)
     ev.save()
 
-    #Pega lista dos DataTables que serão avaliados
+    # Pega lista dos DataTables que serão avaliados
     datatables = DataTable.objects.filter(data_set=data_set)
 
     db = MyDB(data_set)
-
 
     for datatable in datatables:
         results = db.query('SELECT * FROM %s ;' % datatable.name)

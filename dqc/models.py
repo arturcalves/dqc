@@ -107,8 +107,7 @@ class DataColumnConstraint(models.Model):
     data_column = models.ForeignKey(DataColumn)
     data_validation_constraint = models.ForeignKey(DataValidationConstraint)
     created_at = models.DateTimeField(auto_now_add=True)
-    arguments = models.TextField()
-    validation_schema = models.TextField()
+    argument = models.TextField()
 
     def __str__(self):
         return self.data_column+'-'+self.data_validation_constraint

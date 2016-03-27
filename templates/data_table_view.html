@@ -72,30 +72,39 @@
                         <td>{{ datacolumn.description }}</td>
                         <td>
                             <div class="box-body">
-                            <ul class="todo-list">
-                                {% for constraint in datacolumn.datacolumnconstraint_set.all %}
-                                    <li>
-                                        <span class="text">{{ constraint.data_validation_constraint.name }}</span>
-                                        {% if constraint.arguments != '' %}
-                                            <small>: {{ constraint.arguments }}</small>
-                                        {% endif %}
-                                        <div class="tools">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash-o"></i>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                                <ul class="todo-list">
+                                    {% for constraint in datacolumn.datacolumnconstraint_set.all %}
+                                        <li>
+                                            <span class="text">{{ constraint.data_validation_constraint.name }}</span>
+                                            {% if constraint.argument != '' %}
+                                                <small>: {{ constraint.argument }}</small>
+                                            {% endif %}
+                                            <div class="tools">
+                                                <button class="btn pull-right" data-toggle="modal"
+                                                   data-target="#saveDataColumnConstraintModal"
+                                                   data-id="{{ constraint.id }}"
+                                                   data-column-id="{{ constraint.data_column.id }}"
+                                                   data-column-name="{{ constraint.data_column.name }}"
+                                                   data-type-id="{{ constraint.data_column.data_type.id }}"
+                                                   data-type-name="{{ constraint.data_column.data_type.name }}"
+                                                   data-validation-constraint-id="{{ constraint.data_validation_constraint.id }}"
+                                                   data-argument="{{ constraint.argument }}">
+                                                    <i class="fa fa-edit"></i></button>
+                                                <i class="fa fa-trash-o"></i>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                             <div class="small-box-footer">
-                            <button class="btn pull-right" data-toggle="modal"
-                                    data-target="#newDataColumnConstraintModal"
-                                    data-column-id="{{ datacolumn.id }}"
-                                    data-column-name="{{ datacolumn.name }}"
-                                    data-type-id="{{ datacolumn.data_type.id }}"
-                                    data-type-name="{{ datacolumn.data_type.name }}"><i
-                                    class="fa fa-plus"></i> New Constraint
-                            </button>
+                                <button class="btn pull-right" data-toggle="modal"
+                                        data-target="#saveDataColumnConstraintModal"
+                                        data-column-id="{{ datacolumn.id }}"
+                                        data-column-name="{{ datacolumn.name }}"
+                                        data-type-id="{{ datacolumn.data_type.id }}"
+                                        data-type-name="{{ datacolumn.data_type.name }}"><i
+                                        class="fa fa-plus"></i> New Constraint
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -147,36 +156,41 @@
 
 
 
-    <div class="modal fade" id="newDataColumnConstraintModal" role="dialog">
-        <form method="post" action="{% url 'datacolumnconstraint_new' %}">
+    <div class="modal fade" id="saveDataColumnConstraintModal" role="dialog">
+        <form method="post" action="{% url 'datacolumnconstraint_save' %}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">New Data Column Constraint</h4>
+                        <h4 class="modal-title">Save Data Column Constraint</h4>
                     </div>
                     <div class="modal-body">
 
                         {% csrf_token %}
-                        <input type="hidden" id="datacolumn_id" name="datacolumn_id" value="">
+                        <input type="hidden" id="datacolumnconstraint_id" name="datacolumnconstraint_id" value="">
+                        <input type="hidden" id="column_id" name="column_id" value="">
                         <div class="form-group">
-                            <label for="column" class="">Column</label>
+                            <label for="column_name" class="">Column</label>
                             <p><span id="column_name"></span> - <span id="type_name"></span></p>
                         </div>
                         <div class="form-group">
-                            <label for="constraintselect" class="">Data Validation Constraint</label>
+                            <label for="validation_constraint_id" class="">Data Validation Constraint</label>
                             <!-- Style in Line to fiz a bug: https://github.com/harvesthq/chosen/issues/92-->
-                            <select name="dataconstraint_id" id="constraintselect" class="form-control"
+                            <select name="validation_constraint_id" id="validation_constraint_id" class="form-control"
                                     style="width: 100%;">
                             </select>
                         </div>
-
+                        <div class="form-group">
+                            <label for="argument" class="">Argument</label>
+                            <input type="text" id="argument" name="argument" class="form-control">
+                        </div>
+                        <!--
                         <div class="form-group">
                             <label for="argument" class="">Schema</label>
                             <textarea id="schema" name="schema" class="form-control"></textarea>
                         </div>
-
+                        -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -198,10 +212,13 @@
         });
 
 
-        $('#newDataColumnConstraintModal').on('show.bs.modal', function (event) {
+        $('#saveDataColumnConstraintModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var id = button.data('column-id');
-            var name = button.data('column-name');
+            var id = button.data('id');
+            var argument = button.data('argument');
+            var validation_constraint_id = button.data('validation-constraint-id');
+            var column_id = button.data('column-id');
+            var column_name = button.data('column-name');
             var type_id = button.data('type-id');
             var type_name = button.data('type-name');
 
@@ -216,19 +233,24 @@
                         dados.push({id: item.pk, text: item.fields.name})
                     });
 
-                    $('#constraintselect').select2({
+                    $('#validation_constraint_id').select2({
                         placeholder: "Select a Constraint",
                         allowClear: true,
                         data: dados,
+                        initialSelection: validation_constraint_id
                     });
                 }
             });
 
 
             var modal = $(this);
-            modal.find('#datacolumn_id').val(id);
-            modal.find('#column_name').text(name);
+            modal.find('#datacolumnconstraint_id').val(id);
+            modal.find('#column_id').val(column_id);
+            modal.find('#column_name').text(column_name);
             modal.find('#type_name').text(type_name);
+            modal.find('#argument').val(argument);
+            //modal.find('#validation_constraint_id').val(validation_constraint_id);
+
         })
     </script>
 {% endblock %}

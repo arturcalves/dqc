@@ -29,7 +29,7 @@ def dataset_list(request):
 
 def dataset_new(request):
     if request.method == 'GET':
-        return render(request, 'data_set_new.html')
+        return render(request, 'data_set_new.html', {"drivers": CONNECTION_DRIVER_CHOICES})
     elif request.method == 'POST':
         dataset = DataSet(name=request.POST.get("name", ""),
                           description=request.POST.get("description", ""),
@@ -126,13 +126,13 @@ def __register_evaluation_problem(evaluation, column_constraint, record, message
 def __get_schema(column_constraint):
     constraint = column_constraint.data_validation_constraint.name
     column = column_constraint.data_column.name
-    argument = column_constraint.arguments
+    argument = column_constraint.argument
 
     schema_json = ''
     if constraint == 'isNotNull':
         schema_json = '{"%s":{"required":true}}' % column
-    elif constraint == 'in':
-        schema_json = '{"%s":{"allowed": [] }}' % (column, argument)
+    elif constraint == 'length':
+        schema_json = '{"%s":{"minlength": %s, "maxlength": %s}}' % (column, argument, argument)
 
     schema = json.loads(schema_json)
     return schema

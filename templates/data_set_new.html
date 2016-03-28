@@ -29,83 +29,78 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form method="post">
+        <form method="post" class="">
             {% csrf_token %}
-            <div class="box-body">
+            <div class="box-body form-horizontal">
                 <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label for="name" class="col-sm-2 control-label">Name</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                        </div>
+                    <div class="col-sm-4">
+                        <label for="name" class="control-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
                     </div>
-                    <div class="form-group col-sm-8">
-                        <label for="name" class="col-sm-2 control-label">Description</label>
-
-                        <div class="col-sm-10">
+                    <div class="col-sm-8">
+                        <label for="name" class="control-label">Description</label>
                             <input type="text" class="form-control" id="description" name="description"
                                    placeholder="Description">
-                        </div>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label for="driver" class="col-sm-2 control-label">Driver</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="driver" name="driver" placeholder="Driver">
-                        </div>
+                    <div class="col-sm-4">
+                        <label for="driver" class="control-label">Driver</label>
+                        <select name="driver" id="driverselect" class="form-control" style="width: 100%;">
+                                {% for driver in drivers%}
+                                    <option value="{{ driver.0 }}"> {{ driver.1 }}</option>
+                                {% endfor %}
+                            </select>
                     </div>
-                    <div class="form-group col-sm-5">
-                        <label for="server" class="col-sm-2 control-label">Server</label>
-
-                        <div class="col-sm-10">
+                    <div class="col-sm-5">
+                        <label for="server" class="control-label">Server</label>
                             <input type="text" class="form-control" id="server" name="server" placeholder="Server">
-                        </div>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="port" class="col-sm-2 control-label">Port</label>
-
-                        <div class="col-sm-10">
+                        <label for="port" class="control-label">Port</label>
                             <input type="text" class="form-control" id="port" name="port" placeholder="Port">
-                        </div>
                     </div>
                     </div>
                     <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label for="database" class="col-sm-2 control-label">Database</label>
-
-                        <div class="col-sm-10">
+                    <div class="col-sm-4">
+                        <label for="database" class="control-label">Database</label>
                             <input type="text" class="form-control" id="database" name="database"
                                    placeholder="Database">
-                        </div>
                     </div>
                     <div class="form-group col-sm-4">
-                        <label for="user" class="col-sm-2 control-label">User</label>
+                        <label for="user" class="control-label">User</label>
 
-                        <div class="col-sm-10">
                             <input type="text" class="form-control" id="user" name="user" placeholder="User">
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-4">
-                        <label for="password" class="col-sm-2 control-label">Password</label>
 
-                        <div class="col-sm-10">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="password" class="control-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password"
                                    placeholder="Password">
-                        </div>
                     </div>
                 </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary pull-right">Save</button>
-                <button type="button" class="btn btn-info pull-right">Test Connection</button>
+                <div class="pull-right">
+                    <button disabled type="button" class="btn btn-info">Test Connection</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
             </div>
             <!-- /.box-footer -->
         </form>
     </div>
 
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="text/javascript">
+        $('#driverselect').select2({
+            placeholder: "Select a Driver",
+            allowClear: true
+        });
+
+    </script>
 {% endblock %}

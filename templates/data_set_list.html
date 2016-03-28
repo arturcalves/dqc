@@ -26,7 +26,7 @@
         <div class="box-header">
             <h3 class="box-title">Data Sets</h3>
 
-            <a disabled="disabled" href="{%  url "dataset_new" %}" style="pointer-events: none;" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New Data Set</a>
+            <a href="{%  url "dataset_new" %}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New Data Set</a>
 
         </div>
         <!-- /.box-header -->
@@ -50,7 +50,14 @@
                         <td>{{ dataset.count_tables }}</td>
                         <td>{{ dataset.count_columns }}</td>
                         <td>{{ dataset.count_constraints }}</td>
-                        <td><a class="btn btn-default" href="{% url 'dataset_view'  dataset.id %}">Consultar</a></td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-default" href="{% url 'dataset_view'  dataset.id %}">
+                                <i class="fa fa-file-text-o"></i> View</a>
+                            <a class="btn btn-sm btn-warning" href="{% url 'evaluation_new'  dataset.id %}">
+                                <i class="fa fa-play"></i> Rum Evaluate</a>
+                            <a class="btn btn-sm btn-danger" href="{% url 'evaluation_new'  dataset.id %}">
+                                <i class="fa fa-signal "></i> View Evaluations</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

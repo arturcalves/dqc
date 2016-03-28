@@ -117,11 +117,10 @@
     </table>
     <table name="dqc_datacolumnconstraint" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="arguments" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="validation_schema" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="argument" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="data_column_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="data_validation_constraint_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_dqc_datacolumnconstraint_1" columns="data_validation_constraint_id" ref-table="dqc_datavalidationconstraint" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_dqc_datacolumnconstraint_2" columns="data_column_id" ref-table="dqc_datacolumn" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -146,13 +145,13 @@
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="name" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="description" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="connection_driver" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="connection_server" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="connection_port" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="connection_database" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="connection_user" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="connection_password" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="connection_driver" sqlType="VARCHAR(200)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
     </table>
     <table name="dqc_datasetevaluation" schema="" catalog="" type="TABLE">
@@ -169,14 +168,14 @@
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="message" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="data_column_constraint_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="data_record_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="data_set_evaluation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="data_record_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <primary-key columns="id"/>
-      <foreign-key name="#FAKE_dqc_datasetevaluationproblem_1" columns="data_set_evaluation_id" ref-table="dqc_datasetevaluation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_dqc_datasetevaluationproblem_2" columns="data_record_id" ref-table="dqc_datarecord" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_dqc_datasetevaluationproblem_1" columns="data_record_id" ref-table="dqc_datarecord" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_dqc_datasetevaluationproblem_2" columns="data_set_evaluation_id" ref-table="dqc_datasetevaluation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_dqc_datasetevaluationproblem_3" columns="data_column_constraint_id" ref-table="dqc_datacolumnconstraint" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="dqc_datasetevaluationproblem_b20704fb" unique="true" columns="data_set_evaluation_id"/>
       <index name="dqc_datasetevaluationproblem_34adb186" unique="true" columns="data_record_id"/>
+      <index name="dqc_datasetevaluationproblem_b20704fb" unique="true" columns="data_set_evaluation_id"/>
       <index name="dqc_datasetevaluationproblem_c9625a2b" unique="true" columns="data_column_constraint_id"/>
     </table>
     <table name="dqc_datatable" schema="" catalog="" type="TABLE">

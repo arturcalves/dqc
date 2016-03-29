@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^dataconstraintsfromtype/(?P<id>\d+)/$', views.dataconstraintsfromtype, name="dataconstraintsfromtype"),
 
     url(r'^dataset/(?P<id>\d+)/evaluation/new', views.evaluation_new, name="evaluation_new"),
+    url(r'^dataset/(?P<id>\d+)/evaluation/', views.evaluation_list, name="evaluation_list"),
 
     url(r'^admin/', admin.site.urls)
 ]

@@ -40,7 +40,7 @@
                     <th>Tables</th>
                     <th>Columns</th>
                     <th>Constraints</th>
-                    <th style="width: 50px">Action</th>
+                    <th>Action</th>
                 </tr>
                 {% for dataset in datasets %}
                     <tr>
@@ -50,13 +50,11 @@
                         <td>{{ dataset.count_tables }}</td>
                         <td>{{ dataset.count_columns }}</td>
                         <td>{{ dataset.count_constraints }}</td>
-                        <td class="text-right">
+                        <td>
                             <a class="btn btn-sm btn-default" href="{% url 'dataset_view'  dataset.id %}">
                                 <i class="fa fa-file-text-o"></i> View</a>
-                            <a class="btn btn-sm btn-warning" href="{% url 'evaluation_new'  dataset.id %}">
-                                <i class="fa fa-play"></i> Rum Evaluate</a>
-                            <a class="btn btn-sm btn-danger" href="{% url 'evaluation_new'  dataset.id %}">
-                                <i class="fa fa-signal "></i> View Evaluations</a>
+                            <a class="btn btn-sm btn-danger" href="{% url 'evaluation_list'  dataset.id %}">
+                                <i class="fa fa-signal "></i> List Evaluations</a>
                         </td>
                     </tr>
                 {% endfor %}

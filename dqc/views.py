@@ -146,6 +146,22 @@ class JSONEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 
+def evaluation_list(request, id):
+    data_set = DataSet.objects.get(id=id)
+    evaluations = data_set.datasetevaluation_set.order_by('-finished_at')[:10:-1]
+    last_evaluation = data_set.datasetevaluation_set.latest('finished_at')
+
+    problems_per_quality_dimension = []
+    for dqd in DataQualityDimension.objects.all().order_by('name'):
+        problems_per_quality_dimension += [[dqd.name,
+                                           DataSetEvaluationProblem.objects.filter(
+                                               data_set_evaluation_id=last_evaluation.id,
+                                               data_column_constraint__data_validation_constraint__data_quality_dimension=dqd.id).count()]]
+
+    return render(request, 'data_evaluation_list.html', {"dataset": data_set, "evaluations": evaluations,
+                                                         "problems_per_quality_dimension": problems_per_quality_dimension})
+
+
 def evaluation_new(request, id):
     data_set = DataSet.objects.get(id=id)
 

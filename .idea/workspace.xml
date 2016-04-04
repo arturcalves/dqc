@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="617ef80f-e427-495d-a7b5-285971dd347b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/data_evaluation_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dqc/fixtures/initialdata.json" afterPath="$PROJECT_DIR$/dqc/fixtures/initialdata.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dqc/util_classes/connection.py" afterPath="$PROJECT_DIR$/dqc/util_classes/connection.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dqc/util_classes/validation.py" afterPath="$PROJECT_DIR$/dqc/util_classes/validation.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dqc/views.py" afterPath="$PROJECT_DIR$/dqc/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dqc_django/urls.py" afterPath="$PROJECT_DIR$/dqc_django/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/data_set_list.html" afterPath="$PROJECT_DIR$/templates/data_set_list.html" />
     </list>
     <ignored path="dqc_django.iws" />
@@ -32,28 +35,83 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="initialdata.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dqc/fixtures/initialdata.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.2222223">
+              <caret line="491" column="3" selection-start-line="491" selection-start-column="3" selection-end-line="491" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dqc/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="17.451612">
-              <caret line="150" column="81" selection-start-line="150" selection-start-column="81" selection-end-line="150" selection-end-column="81" />
+            <state vertical-scroll-proportion="0.6727273">
+              <caret line="212" column="96" selection-start-line="212" selection-start-column="96" selection-end-line="212" selection-end-column="96" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
-                <marker date="1459216027028" expanded="true" signature="7759:7773" placeholder="SELECT * FRO... missing_value" />
-                <marker date="1459216027028" expanded="true" signature="7759:7775" placeholder="SELECT * FRO... " />
+                <marker date="1459772884696" expanded="true" signature="12706:12720" placeholder="SELECT * FRO... missing_value" />
+                <marker date="1459772884696" expanded="true" signature="12706:12722" placeholder="SELECT * FRO... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data_evaluation_list.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dqc_django/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="33" column="89" selection-start-line="33" selection-start-column="74" selection-end-line="33" selection-end-column="89" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="connection.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dqc/util_classes/connection.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+              <folding>
+                <marker date="1459693546132" expanded="true" signature="3412:3460" placeholder="SELECT table... tables" />
+                <marker date="1459693546132" expanded="true" signature="3546:3621" placeholder="select relna... pg_class" />
+                <marker date="1459693546132" expanded="true" signature="4687:4707" placeholder="select top 1... missing_value" />
+                <marker date="1459693546132" expanded="true" signature="4929:5012" placeholder="select colum... columns" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_table_view.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/data_table_view.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="98" column="37" selection-start-line="98" selection-start-column="37" selection-end-line="98" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dqc/util_classes/validation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.965517">
+              <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_evaluation_list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/data_evaluation_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.84347826">
-              <caret line="189" column="168" selection-start-line="189" selection-start-column="168" selection-end-line="189" selection-end-column="168" />
-              <folding>
-                <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -61,8 +119,8 @@
       <file leaf-file-name="data_set_list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/data_set_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.4444444">
-              <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -72,7 +130,7 @@
         <entry file="file://$PROJECT_DIR$/dqc/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="26" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="26" />
+              <caret line="25" column="18" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="18" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -105,20 +163,20 @@
         <option value="$PROJECT_DIR$/templates/data_set_tables.html" />
         <option value="$PROJECT_DIR$/templates/data_set.html" />
         <option value="$PROJECT_DIR$/dqc/classes/connection_util.py" />
-        <option value="$PROJECT_DIR$/dqc/fixtures/initialdata.json" />
         <option value="$PROJECT_DIR$/dqc/fixtures/initial_data.json" />
-        <option value="$PROJECT_DIR$/dqc/util_classes/validation.py" />
         <option value="$PROJECT_DIR$/templates/data_table.html" />
         <option value="$PROJECT_DIR$/templates/template.html" />
-        <option value="$PROJECT_DIR$/dqc/util_classes/connection.py" />
-        <option value="$PROJECT_DIR$/dqc/models.py" />
         <option value="$PROJECT_DIR$/templates/data_set_new.html" />
         <option value="$PROJECT_DIR$/templates/data_set_view.html" />
         <option value="$PROJECT_DIR$/templates/data_table_view.html" />
         <option value="$PROJECT_DIR$/dqc_django/urls.py" />
-        <option value="$PROJECT_DIR$/templates/data_set_list.html" />
-        <option value="$PROJECT_DIR$/dqc/views.py" />
         <option value="$PROJECT_DIR$/templates/data_evaluation_list.html" />
+        <option value="$PROJECT_DIR$/templates/data_set_list.html" />
+        <option value="$PROJECT_DIR$/dqc/models.py" />
+        <option value="$PROJECT_DIR$/dqc/util_classes/connection.py" />
+        <option value="$PROJECT_DIR$/dqc/util_classes/validation.py" />
+        <option value="$PROJECT_DIR$/dqc/fixtures/initialdata.json" />
+        <option value="$PROJECT_DIR$/dqc/views.py" />
       </list>
     </option>
   </component>
@@ -159,7 +217,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -294,6 +351,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -577,24 +635,24 @@
     <frame x="53" y="24" width="1313" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37867078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29057187" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24940805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17916338" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21073402" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39876354" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.49723756" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35857806" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35857806" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.50276244" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -612,9 +670,9 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27071825" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28902626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28902626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -633,7 +691,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="8" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -697,8 +755,8 @@
           <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1459216027028" expanded="true" signature="7759:7773" placeholder="SELECT * FRO... missing_value" />
-            <marker date="1459216027028" expanded="true" signature="7759:7775" placeholder="SELECT * FRO... " />
+            <marker date="1459772884696" expanded="true" signature="12706:12720" placeholder="SELECT * FRO... missing_value" />
+            <marker date="1459772884696" expanded="true" signature="12706:12722" placeholder="SELECT * FRO... " />
           </folding>
         </state>
       </provider>
@@ -789,8 +847,8 @@
           <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1459216027028" expanded="true" signature="7759:7773" placeholder="SELECT * FRO... missing_value" />
-            <marker date="1459216027028" expanded="true" signature="7759:7775" placeholder="SELECT * FRO... " />
+            <marker date="1459772884696" expanded="true" signature="12706:12720" placeholder="SELECT * FRO... missing_value" />
+            <marker date="1459772884696" expanded="true" signature="12706:12722" placeholder="SELECT * FRO... " />
           </folding>
         </state>
       </provider>
@@ -853,8 +911,8 @@
           <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1459216027028" expanded="true" signature="7759:7773" placeholder="SELECT * FRO... missing_value" />
-            <marker date="1459216027028" expanded="true" signature="7759:7775" placeholder="SELECT * FRO... " />
+            <marker date="1459772884696" expanded="true" signature="12706:12720" placeholder="SELECT * FRO... missing_value" />
+            <marker date="1459772884696" expanded="true" signature="12706:12722" placeholder="SELECT * FRO... " />
           </folding>
         </state>
       </provider>
@@ -911,25 +969,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dqc/fixtures/initialdata.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.962963">
-          <caret line="96" column="24" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dqc_django/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="86" column="21" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dqc/util_classes/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -955,47 +999,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dqc/util_classes/connection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="8" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1458939848318" expanded="true" signature="3393:3441" placeholder="SELECT table... tables" />
-            <marker date="1458939848318" expanded="true" signature="3527:3602" placeholder="select relna... pg_class" />
-            <marker date="1458939848318" expanded="true" signature="3527:3603" placeholder="SELECT * FRO... pg_tables" />
-            <marker date="1458939848318" expanded="true" signature="4668:4688" placeholder="select top 1... missing_value" />
-            <marker date="1458939848318" expanded="true" signature="4910:4945" placeholder="select top 1... missing_value" />
-            <marker date="1458939848318" expanded="true" signature="4910:4978" placeholder="select * fro... missing_value" />
-            <marker date="1458939848318" expanded="true" signature="4910:4989" placeholder="select * fro... columns" />
-            <marker date="1458939848318" expanded="true" signature="4910:4993" placeholder="select colum... columns" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/data_table_view.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.362069">
-          <caret line="93" column="73" selection-start-line="93" selection-start-column="73" selection-end-line="93" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dqc_django/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="58" selection-start-line="32" selection-start-column="58" selection-end-line="32" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/data_set_new.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="10.740741">
           <caret line="54" column="26" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
-          <folding>
-            <element signature="e#1843#1863#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1011,6 +1018,50 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.0">
           <caret line="76" column="66" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dqc_django/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="89" selection-start-line="33" selection-start-column="74" selection-end-line="33" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dqc/util_classes/connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+          <folding>
+            <marker date="1459693546132" expanded="true" signature="3412:3460" placeholder="SELECT table... tables" />
+            <marker date="1459693546132" expanded="true" signature="3546:3621" placeholder="select relna... pg_class" />
+            <marker date="1459693546132" expanded="true" signature="4687:4707" placeholder="select top 1... missing_value" />
+            <marker date="1459693546132" expanded="true" signature="4929:5012" placeholder="select colum... columns" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/data_table_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="98" column="37" selection-start-line="98" selection-start-column="37" selection-end-line="98" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/data_evaluation_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/data_set_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1018,39 +1069,39 @@
     <entry file="file://$PROJECT_DIR$/dqc/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="26" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="26" />
+          <caret line="25" column="18" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="18" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dqc/views.py">
+    <entry file="file://$PROJECT_DIR$/dqc/util_classes/validation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="17.451612">
-          <caret line="150" column="81" selection-start-line="150" selection-start-column="81" selection-end-line="150" selection-end-column="81" />
+        <state vertical-scroll-proportion="-4.965517">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
           <folding>
-            <element signature="e#0#45#0" expanded="true" />
-            <marker date="1459216027028" expanded="true" signature="7759:7773" placeholder="SELECT * FRO... missing_value" />
-            <marker date="1459216027028" expanded="true" signature="7759:7775" placeholder="SELECT * FRO... " />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/data_set_list.html">
+    <entry file="file://$PROJECT_DIR$/dqc/fixtures/initialdata.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4444444">
-          <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+        <state vertical-scroll-proportion="-2.2222223">
+          <caret line="491" column="3" selection-start-line="491" selection-start-column="3" selection-end-line="491" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/data_evaluation_list.html">
+    <entry file="file://$PROJECT_DIR$/dqc/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84347826">
-          <caret line="189" column="168" selection-start-line="189" selection-start-column="168" selection-end-line="189" selection-end-column="168" />
+        <state vertical-scroll-proportion="0.6727273">
+          <caret line="212" column="96" selection-start-line="212" selection-start-column="96" selection-end-line="212" selection-end-column="96" />
           <folding>
-            <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#0#45#0" expanded="true" />
+            <marker date="1459772884696" expanded="true" signature="12706:12720" placeholder="SELECT * FRO... missing_value" />
+            <marker date="1459772884696" expanded="true" signature="12706:12722" placeholder="SELECT * FRO... " />
           </folding>
         </state>
       </provider>

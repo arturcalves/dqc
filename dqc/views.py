@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.core import serializers
+from datetime import datetime
 from .models import *
 from .util_classes.connection import *
 from .util_classes.validation import *
@@ -124,16 +125,106 @@ def __register_evaluation_problem(evaluation, column_constraint, record, message
 
 
 def __get_schema(column_constraint):
-    constraint = column_constraint.data_validation_constraint.name
+    constraint = column_constraint.data_validation_constraint.method_to_call
     column = column_constraint.data_column.name
+    type = column_constraint.data_column.data_type.name
     argument = column_constraint.argument
 
     schema_json = ''
-    if constraint == 'isNotNull':
-        schema_json = '{"%s":{"required":true}}' % column
-    elif constraint == 'length':
-        schema_json = '{"%s":{"minlength": %s, "maxlength": %s}}' % (column, argument, argument)
 
+    if constraint == 'isNull':
+        schema_json = '{"%s":{"nullable":true, "allowed":[]}}' % column
+    elif constraint == 'isNotNull':
+        schema_json = '{"%s":{"required":true}}' % column
+
+    #Booleans
+    elif constraint == 'isTrue':
+        schema_json = '{"%s":{"allowed":[true] }}' % column
+    elif constraint == 'isFalse':
+        schema_json = '{"%s":{"allowed":[false] }}' % column
+
+    #Numbers
+    elif constraint == 'isInteger':
+        schema_json = '{"%s":{"type":"integer" }}' % column
+    elif constraint == 'isFloat':
+        schema_json = '{"%s":{"type":"float" }}' % column
+    elif constraint == 'isGreaterOrEqualThan':
+        schema_json = '{"%s":{"min":%f }}' % (column, float(argument))
+    elif constraint == 'isLessOrEqualThan':
+        schema_json = '{"%s":{"max":%f }}' % (column, float(argument))
+
+    #DateTimes
+    # TODO: testar essas validacoes de datas, e verificar necessidade de cast do argument
+    elif constraint == 'isFuture':
+        schema_json = '{"%s":{"type":"datetime", "min":"%s" }}' % (column, datetime.now())
+    elif constraint == 'isPast':
+        schema_json = '{"%s":{"type":"datetime", "max":"%s" }}' % (column, datetime.now())
+    elif constraint == 'isBefore':
+        schema_json = '{"%s":{"type":"datetime", "max":"%s" }}' % (column, argument)
+    elif constraint == 'isAfter':
+        schema_json = '{"%s":{"type":"datetime", "min":"%s" }}' % (column, argument)
+
+    #Strings
+    elif constraint == 'isEmpty':
+        schema_json = '{"%s":{"type":"string", "allowed":[''] }}' % column
+    elif constraint == 'isNotEmpty':
+        schema_json = '{"%s":{"type":"string", "empty":"False"}}' % column
+    elif constraint == 'length':
+        schema_json = '{"%s":{"type":"string", "minlength":%d, "maxlength":%d}}' % (column, int(argument), int(argument))
+    elif constraint == 'maxLength':
+        schema_json = '{"%s":{"type":"string", "maxlength":%d}}' % (column, int(argument))
+    elif constraint == 'minLength':
+        schema_json = '{"%s":{"type":"string", "minlength":%d}}' % (column, int(argument))
+    elif constraint == 'isUpperCase':
+        schema_json = '{"%s":{"type":"string", "regex":"^[A-Z0-9\\\\s]*$"}}' % column
+    elif constraint == 'isLowerCase':
+        schema_json = '{"%s":{"type":"string", "regex":"^[a-z0-9\\\\s]*$"}}' % column
+    elif constraint == 'beginsWith':
+        schema_json = '{"%s":{"type":"string", "regex":"^%s.*"}}' % (column, argument)
+    elif constraint == 'endsWith':
+        schema_json = '{"%s":{"type":"string", "regex":"^.*%s"}}' % (column, argument)
+    elif constraint == 'contains':
+        schema_json = '{"%s":{"type":"string", "regex":"^.*%s.*"}}' % (column, argument)
+    elif constraint == 'notContains':
+        schema_json = '{"%s":{"type":"string", "regex":"^((?!%s).)*$"}}' % (column, argument)
+    elif constraint == 'matchWithRegex':
+        schema_json = '{"%s":{"type":"string", "regex":"%s"}}' % (column, argument)
+    elif constraint == 'isEmail':
+        schema_json = '{"%s":{"type":"string", "regex":"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+\\\\.[a-zA-Z.]{2,6}$"}}' % column
+    elif constraint == 'isURL':
+        schema_json = '{"%s":{"type":"string", "regex":"^(https?:\\\\/\\\\/)?([a-z0-9.-]+)\\\\.([a-z.]{2,6})([\\\\/\\\\w \\\\.-]*)*\\\\/?$"}}' % column
+    elif constraint == 'isPhone':
+        schema_json = '{"%s":{"type":"string", "regex":"^[0-9\\\\-\\\\+() ]{9,15}$"}}' % column
+    elif constraint == 'isCEP':
+        schema_json = '{"%s":{"type":"string", "regex":"^[0-9]{2}[.]?[0-9]{3}[-]?[0-9]{3}$"}}' % column
+    elif constraint == 'isCPF':
+        schema_json = '{"%s":{"type":"string", "regex":"^[0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2}$"}}' % column
+    elif constraint == 'isCNPJ':
+        schema_json = '{"%s":{"type":"string", "regex":"^[0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[\\\\/]?[0-9]{4}[-]?[0-9]{2}$"}}' % column
+
+    elif constraint == 'isEqual':
+        if type == 'String':
+            schema_json = '{"%s":{"type":"string", "regex":"^%s$"}}' % (column, argument)
+        elif type == 'Number':
+            schema_json = '{"%s":{"min":%f, "max":%f}}' % (column, float(argument), float(argument))
+
+    elif constraint == 'isNotEqual':
+        if type == 'String':
+            schema_json = '{"%s":{"type":"string", "regex":"^(?!%s$).*$"}}' % (column, argument)
+        elif type == 'Number':
+            schema_json = '{"%s":{"type":"float", "forbidden":[%d] }}' % (column, float(argument))
+
+    elif constraint == 'in':
+        if type == 'String':
+            schema_json = '{"%s":{"type":"string", "allowed":[%s] }}' % (column, argument)
+        elif type == 'Number':
+            schema_json = '{"%s":{"type":"float", "allowed":[%s] }}' % (column, argument)
+
+    elif constraint == 'notIn':
+        if type == 'String':
+            schema_json = '{"%s":{"type":"string", "forbidden":[%s] }}' % (column, argument)
+        elif type == 'Number':
+            schema_json = '{"%s":{"type":"float", "forbidden":[%s] }}' % (column, argument)
     schema = json.loads(schema_json)
     return schema
 
@@ -149,14 +240,16 @@ class JSONEncoder(json.JSONEncoder):
 def evaluation_list(request, id):
     data_set = DataSet.objects.get(id=id)
     evaluations = data_set.datasetevaluation_set.order_by('-finished_at')[:10:-1]
-    last_evaluation = data_set.datasetevaluation_set.latest('finished_at')
-
+    last_evaluation = None
     problems_per_quality_dimension = []
-    for dqd in DataQualityDimension.objects.all().order_by('name'):
-        problems_per_quality_dimension += [[dqd.name,
-                                           DataSetEvaluationProblem.objects.filter(
-                                               data_set_evaluation_id=last_evaluation.id,
-                                               data_column_constraint__data_validation_constraint__data_quality_dimension=dqd.id).count()]]
+
+    if len(evaluations):
+        last_evaluation = data_set.datasetevaluation_set.latest('finished_at')
+        for dqd in DataQualityDimension.objects.all().order_by('name'):
+            problems_per_quality_dimension += [[dqd.name,
+                                               DataSetEvaluationProblem.objects.filter(
+                                                   data_set_evaluation_id=last_evaluation.id,
+                                                   data_column_constraint__data_validation_constraint__data_quality_dimension=dqd.id).count()]]
 
     return render(request, 'data_evaluation_list.html', {"dataset": data_set, "evaluations": evaluations,
                                                          "problems_per_quality_dimension": problems_per_quality_dimension})
@@ -203,12 +296,13 @@ def evaluation_new(request, id):
 
             for (col_constraint, schema) in col_constraints:
                 # avalia cada registro
-                if not is_valid(record_dict, schema):
+                (is_valid, errors) = check_is_valid(record_dict, schema)
+                if not is_valid:
                     ev.found_problems += 1
                     if not record_object.id:
                         record_object.save()
-                    __register_evaluation_problem(ev, datacolumnconstraint, record_object, 'Problema Encontrado')
+                    __register_evaluation_problem(ev, datacolumnconstraint, record_object, errors)
 
     ev.save()
 
-    return redirect('dataset_list')
+    return redirect('evaluation_list', id)

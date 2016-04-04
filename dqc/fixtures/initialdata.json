@@ -23,12 +23,15 @@
       "description": "Dimensão de Qualidade Consistencia"
     }
   },
+
+
+
   {
     "model": "dqc.DataType",
     "pk": 1,
     "fields": {
-      "name": "String",
-      "description": "Tipo de Dado de Texto"
+      "name": "Boolean",
+      "description": "Tipo de Dado Booleano"
     }
   },
   {
@@ -43,7 +46,7 @@
     "model": "dqc.DataType",
     "pk": 3,
     "fields": {
-      "name": "Date",
+      "name": "Date/Time",
       "description": "Tipo de Dado Temporal"
     }
   },
@@ -51,8 +54,8 @@
     "model": "dqc.DataType",
     "pk": 4,
     "fields": {
-      "name": "Boolean",
-      "description": "Tipo de Dado Booleano"
+      "name": "String",
+      "description": "Tipo de Dado de Texto"
     }
   },
   {
@@ -63,39 +66,438 @@
       "description": "Tipo de Dado Binário"
     }
   },
+
+
+
   {
     "model": "dqc.DataValidationConstraint",
     "pk": 1,
     "fields": {
       "name": "IsNull",
       "description": "O valor deve ser nulo",
-      "data_quality_dimension" : [1],
-      "data_type" : [1],
-      "method_to_call" : "is_null",
+      "data_quality_dimension" : [],
+      "data_type" : [1, 2, 3, 4, 5],
+      "method_to_call" : "isNull",
       "arguments_number" : 0
     }
   },
   {
     "model": "dqc.DataValidationConstraint",
-    "pk": 1,
+    "pk": 2,
     "fields": {
       "name": "IsNotNull",
       "description": "O valor não pode ser nulo",
-      "data_quality_dimension" : [2],
+      "data_quality_dimension" : [],
+      "data_type" : [1, 2, 3, 4, 5],
+      "method_to_call" : "isNotNull",
+      "arguments_number" : 0
+    }
+  },
+
+
+
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 3,
+    "fields": {
+      "name": "IsTrue",
+      "description": "O valor deve ser Verdadeiro",
+      "data_quality_dimension" : [],
       "data_type" : [1],
-      "method_to_call" : "is_not_null",
+      "method_to_call" : "isTrue",
       "arguments_number" : 0
     }
   },
   {
     "model": "dqc.DataValidationConstraint",
-    "pk": 1,
+    "pk": 4,
+    "fields": {
+      "name": "IsFalse",
+      "description": "O valor deve ser Falso",
+      "data_quality_dimension" : [],
+      "data_type" : [1],
+      "method_to_call" : "isFalse",
+      "arguments_number" : 0
+    }
+  },
+
+
+
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 5,
+    "fields": {
+      "name": "IsInteger",
+      "description": "O valor deve ser um Número Inteiro",
+      "data_quality_dimension" : [],
+      "data_type" : [2],
+      "method_to_call" : "isInteger",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 6,
+    "fields": {
+      "name": "IsFloat",
+      "description": "O valor deve ser um Número Real",
+      "data_quality_dimension" : [],
+      "data_type" : [2],
+      "method_to_call" : "isFloat",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 7,
+    "fields": {
+      "name": "IsGreaterOrEqualThan",
+      "description": "O valor deve ser um Número Maior ou igual a",
+      "data_quality_dimension" : [],
+      "data_type" : [2],
+      "method_to_call" : "isGreaterOrEqualThan",
+      "arguments_number" : 1,
+      "arguments_type" : 2
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 8,
+    "fields": {
+      "name": "IsLessOrEqualThan",
+      "description": "O valor deve ser um Número  Menor ou igual a",
+      "data_quality_dimension" : [],
+      "data_type" : [2],
+      "method_to_call" : "isLessOrEqualThan",
+      "arguments_number" : 1,
+      "arguments_type" : 2
+    }
+  },
+
+
+
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 9,
+    "fields": {
+      "name": "IsFuture",
+      "description": "O valor deve ser uma Data futura",
+      "data_quality_dimension" : [],
+      "data_type" : [3],
+      "method_to_call" : "isFuture",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 10,
+    "fields": {
+      "name": "IsPast",
+      "description": "O valor deve ser uma Data passada",
+      "data_quality_dimension" : [],
+      "data_type" : [3],
+      "method_to_call" : "isPast",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 11,
+    "fields": {
+      "name": "IsBefore",
+      "description": "O valor deve ser uma Data antes de ",
+      "data_quality_dimension" : [],
+      "data_type" : [3],
+      "method_to_call" : "isBefore",
+      "arguments_number" : 1,
+      "arguments_type" : 3
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 12,
+    "fields": {
+      "name": "IsAfter",
+      "description": "O valor deve ser uma Data depois de ",
+      "data_quality_dimension" : [],
+      "data_type" : [3],
+      "method_to_call" : "isAfter",
+      "arguments_number" : 1,
+      "arguments_type" : 3
+    }
+  },
+
+
+
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 13,
+    "fields": {
+      "name": "IsEmpty",
+      "description": "O valor deve ser uma String vazia ",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isEmpty",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 14,
+    "fields": {
+      "name": "IsNotEmpty",
+      "description": "O valor deve ser uma String não vazia ",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isNotEmpty",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 15,
+    "fields": {
+      "name": "Length",
+      "description": "O valor deve ser uma String com tamanho igual a ",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "length",
+      "arguments_number" : 1,
+      "arguments_type" : 2
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 16,
+    "fields": {
+      "name": "MaxLength",
+      "description": "O valor deve ser uma String com tamanho no máximo ",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "maxLength",
+      "arguments_number" : 1,
+      "arguments_type" : 2
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 17,
+    "fields": {
+      "name": "MinLength",
+      "description": "O valor deve ser uma String com tamanho no mínimo ",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "minLength",
+      "arguments_number" : 1,
+      "arguments_type" : 2
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 18,
+    "fields": {
+      "name": "IsUpperCase",
+      "description": "O valor deve ser uma String com caracteres maiúsculos",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isUpperCase",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 19,
+    "fields": {
+      "name": "IsLowerCase",
+      "description": "O valor deve ser uma String com caracteres minúsculos",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isLowerCase",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 20,
+    "fields": {
+      "name": "BeginsWith",
+      "description": "O valor deve ser uma String iniciando com",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "beginsWith",
+      "arguments_number" : 1,
+      "arguments_type" : 4
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 21,
+    "fields": {
+      "name": "endsWith",
+      "description": "O valor deve ser uma String terminando com",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "endsWith",
+      "arguments_number" : 1,
+      "arguments_type" : 4
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 22,
+    "fields": {
+      "name": "Contains",
+      "description": "O valor deve ser uma String contendo",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "contains",
+      "arguments_number" : 1,
+      "arguments_type" : 4
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 23,
+    "fields": {
+      "name": "NotContains",
+      "description": "O valor deve ser uma String que não contenha",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "notContains",
+      "arguments_number" : 1,
+      "arguments_type" : 4
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 24,
+    "fields": {
+      "name": "MatchWithRegex",
+      "description": "O valor deve ser uma String que coincida com o regex",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "matchWithRegex",
+      "arguments_number" : 1,
+      "arguments_type" : 4
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 25,
+    "fields": {
+      "name": "IsEmail",
+      "description": "O valor deve ser um Email",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isEmail",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 26,
+    "fields": {
+      "name": "IsURL",
+      "description": "O valor deve ser uma URL",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isURL",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 27,
+    "fields": {
+      "name": "IsPhone",
+      "description": "O valor deve ser um Telefone",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isPhone",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 28,
+    "fields": {
+      "name": "IsCEP",
+      "description": "O valor deve ser um CEP",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isCEP",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 29,
+    "fields": {
+      "name": "IsCPF",
+      "description": "O valor deve ser um CPF",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isCPF",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 30,
+    "fields": {
+      "name": "IsCNPJ",
+      "description": "O valor deve ser um CNPJ",
+      "data_quality_dimension" : [],
+      "data_type" : [4],
+      "method_to_call" : "isCNPJ",
+      "arguments_number" : 0
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 31,
     "fields": {
       "name": "IsEqual",
       "description": "O valor deve ser igual a",
-      "data_quality_dimension" : [3],
-      "data_type" : [1],
-      "method_to_call" : "is_equal",
+      "data_quality_dimension" : [],
+      "data_type" : [2,3,4],
+      "method_to_call" : "isEqual",
+      "arguments_number" : 1
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 32,
+    "fields": {
+      "name": "IsNotEqual",
+      "description": "O valor deve ser diferente de",
+      "data_quality_dimension" : [],
+      "data_type" : [2,3,4],
+      "method_to_call" : "isNotEqual",
+      "arguments_number" : 1
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 33,
+    "fields": {
+      "name": "In",
+      "description": "O valor deve ser um dos seguintes",
+      "data_quality_dimension" : [],
+      "data_type" : [2,3,4],
+      "method_to_call" : "in",
+      "arguments_number" : 1
+    }
+  },
+  {
+    "model": "dqc.DataValidationConstraint",
+    "pk": 34,
+    "fields": {
+      "name": "NotIn",
+      "description": "O valor não pode ser um dos seguintes",
+      "data_quality_dimension" : [],
+      "data_type" : [2,3,4],
+      "method_to_call" : "notIn",
       "arguments_number" : 1
     }
   }

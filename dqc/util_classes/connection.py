@@ -10,13 +10,13 @@ CONNECTION_DRIVER_CHOICES = (
 
 
 def get_column_type(type):
-    if type in [str, 'character varying']:
+    if type in [str, 'character varying', 'text']:
         return 'String'
     elif type in [int, float, 'integer', 'bigint']:
         return 'Number'
     elif type in ['date', 'timestamp', 'timestamp without time zone']:
         return 'Date'
-    elif type in [bool]:
+    elif type in [bool, 'boolean']:
         return 'Boolean'
     if type in [bytearray, bytes, 'bytea']:
         return 'Binary'

@@ -10,12 +10,12 @@ CONNECTION_DRIVER_CHOICES = (
 
 
 def get_column_type(type):
-    if type in [str, 'character varying', 'text']:
+    if type in [str, 'character varying', 'text', 'varchar']:
         return 'String'
-    elif type in [int, float, 'integer', 'bigint']:
+    elif type in [int, float, 'integer', 'bigint', 'int', 'smallint', 'tinyint']:
         return 'Number'
-    elif type in ['date', 'timestamp', 'timestamp without time zone']:
-        return 'Date'
+    elif type in ['date', 'timestamp', 'timestamp without time zone']:                                                                                                                                                                      
+        return 'Date/Time'
     elif type in [bool, 'boolean']:
         return 'Boolean'
     if type in [bytearray, bytes, 'bytea']:
@@ -129,9 +129,9 @@ def get_column_list(datatable):
     db = MyDB(datatable.data_set)
     columns = []
     if datatable.data_set.connection_driver == 'mssql':
-        descriptions = db.query('select top 1 * from %s ;' % datatable.name).description
+        descriptions = db.query("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='%s';" % datatable.name)
         for desc in descriptions:
-            columns += [(desc[0], get_column_type(desc[1]))]
+                columns += [(desc[0], get_column_type(desc[1]))]
     elif datatable.data_set.connection_driver == 'pgsql':
         descriptions = db.query("select column_name, data_type from information_schema.columns where table_name='%s';" % datatable.name)
         for desc in descriptions:

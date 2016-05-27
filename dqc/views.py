@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from datetime import datetime
 from .models import *
@@ -48,8 +48,13 @@ def dataset_new(request):
 def dataset_view(request, id):
     dataset = DataSet.objects.get(id=id)
     datatables = DataTable.objects.filter(data_set=dataset)
+    tables = []
+    datatables_names = [dt.name for dt in datatables]
+    for (table_name) in get_table_list(dataset):
+        if table_name not in datatables_names:
+            tables += [(table_name)]
     return render(request, 'data_set_view.html',
-                  {"dataset": dataset, "datatables": datatables, "tables": get_table_list(dataset)})
+                  {"dataset": dataset, "datatables": datatables, "tables": tables})
 
 
 def datatable_new(request):
@@ -58,6 +63,16 @@ def datatable_new(request):
                               description=request.POST.get("description", ""),
                               data_set=DataSet.objects.get(id=request.POST.get("dataset_id", "")))
         datatable.save()
+
+        for (column_name, column_type) in get_column_list(datatable):
+
+            datacolumn = DataColumn(name=column_name,
+                                    description="",
+                                    data_table=datatable,
+                                    data_type=DataType.objects.get(name=column_type))
+            datacolumn.save()
+
+
         messages.success(request, 'DataTable Inserted')
         return redirect('dataset_view', datatable.data_set.id)
     return redirect('index')
@@ -66,8 +81,14 @@ def datatable_new(request):
 def datatable_view(request, id):
     datatable = DataTable.objects.get(id=id)
     datacolumns = DataColumn.objects.filter(data_table=datatable)
+    columns = []
+    datacolumns_names = [dc.name for dc in datacolumns]
+    for (column_name, column_type) in get_column_list(datatable):
+        #print(column_name)
+        if column_name not in datacolumns_names:
+            columns += [(column_name, column_type)]
     return render(request, 'data_table_view.html',
-                  {"datatable": datatable, "datacolumns": datacolumns, "columns": get_column_list(datatable)})
+                  {"datatable": datatable, "datacolumns": datacolumns, "columns": columns })
 
 
 def datacolumn_new(request):
@@ -114,6 +135,39 @@ def datacolumnconstraint_save(request):
 
         return redirect('datatable_view', datacolumnconstraint.data_column.data_table.id)
     return redirect('index')
+
+
+def datacolumnconstraint_ajaxsave(request):
+    response_data = {}
+    if request.method == 'POST':
+        data_column_constraint_id = request.POST.get("datacolumnconstraint_id", "")
+        if data_column_constraint_id != '':
+            datacolumnconstraint = DataColumnConstraint.objects.get(id=data_column_constraint_id)
+            datacolumnconstraint.data_column = DataColumn.objects.get(
+                id=request.POST.get("column_id", ""))
+            datacolumnconstraint.data_validation_constraint = DataValidationConstraint.objects.get(
+                id=request.POST.get("validation_constraint_id", ""))
+            datacolumnconstraint.argument = request.POST.get("argument", "")
+        else:
+            datacolumnconstraint = DataColumnConstraint(
+                data_column=DataColumn.objects.get(id=request.POST.get("column_id", "")),
+                data_validation_constraint=DataValidationConstraint.objects.get(
+                    id=request.POST.get("validation_constraint_id", "")),
+                argument=request.POST.get("argument", ""))
+            response_data['result'] = 'updated'
+        datacolumnconstraint.save()
+        response_data['result'] = 'saved'
+        response_data['constraint_id'] = datacolumnconstraint.id
+        response_data['constraint_argument'] = datacolumnconstraint.argument
+        response_data['data_validation_constraint_id'] = datacolumnconstraint.data_validation_constraint.id
+        response_data['data_validation_constraint_name'] = datacolumnconstraint.data_validation_constraint.name
+        response_data['data_column_id'] = datacolumnconstraint.data_column.id
+        response_data['data_column_name'] = datacolumnconstraint.data_column.name
+        response_data['data_type_id'] = datacolumnconstraint.data_column.data_type.id
+        response_data['data_type_name'] = datacolumnconstraint.data_column.data_type.name
+    else:
+        response_data['result'] = 'erro'
+    return JsonResponse(response_data)
 
 
 def __register_evaluation_problem(evaluation, column_constraint, record, message):
@@ -242,7 +296,8 @@ def evaluation_list(request, id):
     evaluations = data_set.datasetevaluation_set.order_by('-finished_at')[:10:-1]
     last_evaluation = None
     problems_per_quality_dimension = []
-
+    problems_per_table = []
+    problems_per_column = []
     if len(evaluations):
         last_evaluation = data_set.datasetevaluation_set.latest('finished_at')
         for dqd in DataQualityDimension.objects.all().order_by('name'):
@@ -251,8 +306,24 @@ def evaluation_list(request, id):
                                                    data_set_evaluation_id=last_evaluation.id,
                                                    data_column_constraint__data_validation_constraint__data_quality_dimension=dqd.id).count()]]
 
+        for dt in DataTable.objects.filter(data_set=data_set).order_by('name'):
+            problems_per_table += [[dt.name,
+                                    DataSetEvaluationProblem.objects.filter(
+                                                   data_set_evaluation_id=last_evaluation.id,
+                                                   data_column_constraint__data_column__data_table=dt.id).count()]]
+            if problems_per_table[-1][1] !=0 :
+                for dc in DataColumn.objects.filter(data_table=dt).order_by('name'):
+                    problems = DataSetEvaluationProblem.objects.filter(
+                                                  data_set_evaluation_id=last_evaluation.id,
+                                                  data_column_constraint__data_column=dc.id).count()
+                    if problems:
+                        problems_per_column += [[dt.name, dc.name, problems]]
+
+
     return render(request, 'data_evaluation_list.html', {"dataset": data_set, "evaluations": evaluations,
-                                                         "problems_per_quality_dimension": problems_per_quality_dimension})
+                                                         "problems_per_quality_dimension": problems_per_quality_dimension,
+                                                         "problems_per_table": problems_per_table,
+                                                         "problems_per_column": problems_per_column})
 
 
 def evaluation_new(request, id):

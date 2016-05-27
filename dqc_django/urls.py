@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^datacolumn/new$', views.datacolumn_new, name="datacolumn_new"),
 
     url(r'^datacolumnconstraint/save$', views.datacolumnconstraint_save, name="datacolumnconstraint_save"),
+    url(r'^datacolumnconstraint/ajaxsave$', views.datacolumnconstraint_ajaxsave, name="datacolumnconstraint_ajaxsave"),
 
     url(r'^dataconstraintsfromtype/(?P<id>\d+)/$', views.dataconstraintsfromtype, name="dataconstraintsfromtype"),
 

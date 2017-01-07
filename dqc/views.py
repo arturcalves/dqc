@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import *
 from .util_classes.connection import *
 from .util_classes.validation import *
@@ -78,9 +80,20 @@ def datatable_new(request):
     return redirect('index')
 
 
+@csrf_exempt
+def datatable_edit(request):
+    response_data = {}
+    if request.method == 'POST':
+        datatable = DataTable.objects.get(id=request.POST.get("pk", ""))
+        if request.POST.get("name", "") == 'description':
+            datatable.description = request.POST.get("value", "")
+        datatable.save()
+        response_data['result'] = 'sucess'
+    return JsonResponse(response_data)
+
 def datatable_view(request, id):
     datatable = DataTable.objects.get(id=id)
-    datacolumns = DataColumn.objects.filter(data_table=datatable)
+    datacolumns = DataColumn.objects.filter(data_table=datatable).order_by('name')
     columns = []
     datacolumns_names = [dc.name for dc in datacolumns]
     for (column_name, column_type) in get_column_list(datatable):
@@ -105,6 +118,17 @@ def datacolumn_new(request):
         messages.success(request, 'DataColumn Inserted')
         return redirect('datatable_view', datacolumn.data_table.id)
     return redirect('index')
+
+@csrf_exempt
+def datacolumn_edit(request):
+    response_data = {}
+    if request.method == 'POST':
+        datacolumn = DataColumn.objects.get(id=request.POST.get("pk", ""))
+        if request.POST.get("name", "") == 'description':
+            datacolumn.description = request.POST.get("value", "")
+        datacolumn.save()
+        response_data['result'] = 'sucess'
+    return JsonResponse(response_data)
 
 
 def dataconstraintsfromtype(request, id):
@@ -243,6 +267,8 @@ def __get_schema(column_constraint):
         schema_json = '{"%s":{"type":"string", "regex":"^((?!%s).)*$"}}' % (column, argument)
     elif constraint == 'matchWithRegex':
         schema_json = '{"%s":{"type":"string", "regex":"%s"}}' % (column, argument)
+    elif constraint == 'isNumeric':
+        schema_json = '{"%s":{"type":"string", "regex":"^[0-9]+$"}}' % column
     elif constraint == 'isEmail':
         schema_json = '{"%s":{"type":"string", "regex":"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+\\\\.[a-zA-Z.]{2,6}$"}}' % column
     elif constraint == 'isURL':
@@ -294,7 +320,6 @@ class JSONEncoder(json.JSONEncoder):
 def evaluation_list(request, id):
     data_set = DataSet.objects.get(id=id)
     evaluations = data_set.datasetevaluation_set.order_by('-finished_at')[:10:-1]
-    last_evaluation = None
     problems_per_quality_dimension = []
     problems_per_table = []
     problems_per_column = []
@@ -317,7 +342,7 @@ def evaluation_list(request, id):
                                                   data_set_evaluation_id=last_evaluation.id,
                                                   data_column_constraint__data_column=dc.id).count()
                     if problems:
-                        problems_per_column += [[dt.name, dc.name, problems]]
+                        problems_per_column += [[dt.name, dc.description or dc.name, problems]]
 
 
     return render(request, 'data_evaluation_list.html', {"dataset": data_set, "evaluations": evaluations,
@@ -372,8 +397,24 @@ def evaluation_new(request, id):
                     ev.found_problems += 1
                     if not record_object.id:
                         record_object.save()
-                    __register_evaluation_problem(ev, datacolumnconstraint, record_object, errors)
+                    __register_evaluation_problem(ev, col_constraint, record_object, errors)
 
     ev.save()
 
     return redirect('evaluation_list', id)
+
+def evaluation_view(request, id, id_evaluation):
+    dataset = DataSet.objects.get(id=id)
+    evaluation = DataSetEvaluation.objects.get(id=id_evaluation)
+    datatables = DataTable.objects.filter(data_set=dataset)
+
+    evaluation_problems = DataSetEvaluationProblem.objects.filter(data_set_evaluation=evaluation)
+
+    datarecord_per_table = []
+    for dt in datatables:
+        datarecord_per_table += [(dt.name, DataRecord.objects.filter(data_table=dt, datasetevaluationproblem__data_set_evaluation=evaluation))]
+
+    return render(request, 'data_evaluation_view.html',
+                  {"dataset":dataset, "evaluation": evaluation, "datatables": datatables, 'datarecord_per_table': datarecord_per_table, 'problems':evaluation_problems})
+
+

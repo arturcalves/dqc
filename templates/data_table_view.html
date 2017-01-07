@@ -13,7 +13,6 @@
     </ol>
 {% endblock %}
 
-
 {% block content %}
 
     {% if messages %}
@@ -71,7 +70,7 @@
                         <td>{{ datacolumn.id }}</td>
                         <td>{{ datacolumn.name }}</td>
                         <td>{{ datacolumn.data_type.name }}</td>
-                        <td>{{ datacolumn.description }}</td>
+                        <td><a style="border: 0px;" href="#" id="description" class="editable" data-type="text" data-pk="{{ datacolumn.id }}" data-url="{% url 'datacolumn_edit' %}" data-title="Enter description">{{ datacolumn.description }}</a></td>
                         <td>
                             <div class="box-body">
                                 <ul class="todo-list" id="constraints_list_column_{{ datacolumn.id }}">
@@ -95,59 +94,7 @@
                                                 <i class="fa fa-trash-o"></i></button>
                                             </div>
                                         </li>
-<!--
-                                        <li id="edit_constraint_to_columnconstraint_{{ constraint.id }}" class="hidden">
-                                        <form class="editDataColumnConstraintForm" method="post" action="{% url 'datacolumnconstraint_save' %}">
-                                            {% csrf_token %}
-                                            <input type="hidden" id="datacolumnconstraint_id" name="datacolumnconstraint_id" value="">
-                                            <input type="hidden" id="column_id" name="column_id" value="">
-                                            <div class="row" style="margin:0px;">
-                                                <div class="col-md-5">
-                                                    <label for="validation_constraint_id" class="">Data Validation Constraint</label>
-                                                    <select name="validation_constraint_id" id="validation_constraint_id" class="form-control"
-                                                            style="width: 100%;"></select>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <label for="argument" class="">Argument</label>
-                                                    <input type="text" id="argument" name="argument" class="form-control">
-                                                </div>
-                                                <div class="pull-right">
-                                                    <button type="button" class="btn btn-xs btn-default cancelEditDataColumnConstraintButton" title="Cancel" data-id="{{ constraint.id }}"><i class="fa fa-close"></i></button>
-                                                    <button type="submit" class="btn btn-xs btn-primary" title="Save"><i class="fa fa-save"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </li>
--->
                                     {% endfor %}
-
-                                    <li id="add_constraint_to_column_{{ datacolumn.id }}" class="hidden">
-                                        <div class="box" style="background-color: transparent; border: none; box-shadow: none; margin: 0px;">
-                                            <div class="overlay hidden"><i class="fa fa-refresh fa-spin"></i></div>
-                                            <form class="addDataColumnConstraintForm" id="form_add_constraint_to_column_{{ datacolumn.id }}" method="post" action="{% url 'datacolumnconstraint_ajaxsave' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" id="datacolumnconstraint_id" name="datacolumnconstraint_id" value="">
-                                                <input type="hidden" id="column_id" name="column_id" value="">
-                                                <div class="row" style="margin:0px;">
-                                                    <div class="col-md-5">
-                                                        <label for="validation_constraint_id" class="">Data Validation Constraint</label>
-                                                        <!-- Style in Line to fiz a bug: https://github.com/harvesthq/chosen/issues/92-->
-                                                        <select name="validation_constraint_id" id="validation_constraint_id" class="form-control"
-                                                                style="width: 100%;"></select>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <label for="argument" class="">Argument</label>
-                                                        <input type="text" id="argument" name="argument" class="form-control">
-                                                    </div>
-                                                    <div class="pull-right">
-                                                        <button type="button" class="btn btn-xs btn-default cancelAddDataColumnConstraintButton" title="Cancel" data-column-id="{{ datacolumn.id }}"><i class="fa fa-close"></i></button>
-                                                        <button type="submit" class="btn btn-xs btn-primary" title="Save"><i class="fa fa-save"></i></button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-
                                 </ul>
                             </div>
                             <div class="small-box-footer">
@@ -207,59 +154,13 @@
         </form>
     </div><!-- /.modal -->
 
-
-
-    <div class="modal fade" id="saveDataColumnConstraintModal" role="dialog">
-        <form method="post" action="{% url 'datacolumnconstraint_save' %}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Save Data Column Constraint</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        {% csrf_token %}
-                        <input type="hidden" id="datacolumnconstraint_id" name="datacolumnconstraint_id" value="">
-                        <input type="hidden" id="column_id" name="column_id" value="">
-                        <div class="form-group">
-                            <label for="column_name" class="">Column</label>
-                            <p><span id="column_name"></span> - <span id="type_name"></span></p>
-                        </div>
-                        <div class="form-group">
-                            <label for="validation_constraint_id" class="">Data Validation Constraint</label>
-                            <!-- Style in Line to fiz a bug: https://github.com/harvesthq/chosen/issues/92-->
-                            <select name="validation_constraint_id" id="validation_constraint_id" class="form-control"
-                                    style="width: 100%;">
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="argument" class="">Argument</label>
-                            <input type="text" id="argument" name="argument" class="form-control">
-                        </div>
-                        <!--
-                        <div class="form-group">
-                            <label for="argument" class="">Schema</label>
-                            <textarea id="schema" name="schema" class="form-control"></textarea>
-                        </div>
-                        -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </form>
-    </div><!-- /.modal -->
-
-
 {% endblock %}
 
 {% block scripts %}
 
-    <script id="constraintTemplate" class="fix" type="text/x-jquery-tmpl">
+
+
+<script id="constraintTemplate" class="fix" type="text/x-jquery-tmpl">
                                 <li id="show_constraint_to_columnconstraint_${ constraint_id }">
                                     <span class="text">${ data_validation_constraint_name }</span>
                                     {% templatetag openvariable %}if constraint_argument{% templatetag closevariable %}
@@ -283,10 +184,10 @@
 
 <script id="formTemplate" class="fix" type="text/x-jquery-tmpl">
 
-                                <li id="edit_constraint_to_columnconstraint_${ constraint_id }" class="hidden">
+                                <li id="form_${typeform}_constraint_${ constraint_id }" class="hidden">
                                 <div class="box" style="background-color: transparent; border: none; box-shadow: none; margin: 0px;">
                                 <div class="overlay hidden"><i class="fa fa-refresh fa-spin"></i></div>
-                                <form class="editDataColumnConstraintForm" id="form_add_constraint_to_column_{{ datacolumn.id }}" method="post" action="{% url 'datacolumnconstraint_ajaxsave' %}">
+                                <form class="saveDataColumnConstraintForm" id="form_save_constraint_to_column_{{ datacolumn.id }}" method="post" action="{% url 'datacolumnconstraint_ajaxsave' %}">
                                     {% csrf_token %}
                                     <input type="hidden" id="datacolumnconstraint_id" name="datacolumnconstraint_id" value="">
                                     <input type="hidden" id="column_id" name="column_id" value="">
@@ -301,7 +202,7 @@
                                             <input type="text" id="argument" name="argument" class="form-control">
                                         </div>
                                         <div class="pull-right">
-                                            <button type="button" class="btn btn-xs btn-default cancelEditDataColumnConstraintButton" title="Cancel" data-id="${ constraint_id }"><i class="fa fa-close"></i></button>
+                                            <button type="button" class="btn btn-xs btn-default cancelSaveDataColumnConstraintButton" title="Cancel" data-typeform="${typeform}" data-id="${ constraint_id }"><i class="fa fa-close"></i></button>
                                             <button type="submit" class="btn btn-xs btn-primary" title="Save"><i class="fa fa-save"></i></button>
                                         </div>
                                     </div>
@@ -312,14 +213,18 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function() {
+            $('.editable').editable();
+        });
+
         $('#columnselect').select2({
             placeholder: "Select a Column",
             allowClear: true
         });
 
+        $(document).on('click', '.editDataColumnConstraintButton', function (event) {
+            var button = $(this);
 
-        $('#saveDataColumnConstraintModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
             var id = button.data('id');
             var argument = button.data('argument');
             var validation_constraint_id = button.data('validation-constraint-id');
@@ -327,6 +232,13 @@
             var column_name = button.data('column-name');
             var type_id = button.data('type-id');
             var type_name = button.data('type-name');
+
+            $.template( "formTemplate", formTemplate );
+            $.tmpl( "formTemplate", { 'constraint_id' : id, 'typeform' : 'edit'}
+            ).insertAfter( "#show_constraint_to_columnconstraint_"+id);
+
+            var li_form = $("#form_edit_constraint_"+id)
+            var li_show = $("#show_constraint_to_columnconstraint_"+id)
 
             var dados = [];
 
@@ -339,7 +251,7 @@
                         dados.push({id: item.pk, text: item.fields.name})
                     });
 
-                    $('#validation_constraint_id').select2({
+                    li_form.find('#validation_constraint_id').select2({
                         placeholder: "Select a Constraint",
                         allowClear: true,
                         data: dados
@@ -347,13 +259,15 @@
                 }
             });
 
+            li_form.find('#datacolumnconstraint_id').val(id);
+            li_form.find('#column_id').val(column_id);
+            li_form.find('#column_name').text(column_name);
+            li_form.find('#type_name').text(type_name);
+            li_form.find('#argument').val(argument);
 
-            var modal = $(this);
 
-            modal.find('#column_id').val(column_id);
-            modal.find('#column_name').text(column_name);
-            modal.find('#type_name').text(type_name);
-
+            li_form.removeClass('hidden');
+            li_show.addClass('hidden');
         });
 
         $(document).on('click', '.addDataColumnConstraintButton', function (event) {
@@ -365,7 +279,12 @@
             var type_id = button.data('type-id');
             var type_name = button.data('type-name');
 
-            var li = $("#add_constraint_to_column_"+column_id)
+            $.template( "formTemplate", formTemplate );
+            $.tmpl( "formTemplate", { 'constraint_id' : column_id, 'typeform' : 'create'}
+            ).appendTo( "#constraints_list_column_"+column_id );
+
+            var li_form = $("#form_create_constraint_"+column_id);
+            console.log(li_form);
 
             var dados = [];
 
@@ -378,7 +297,7 @@
                         dados.push({id: item.pk, text: item.fields.name})
                     });
 
-                    li.find('#validation_constraint_id').select2({
+                    li_form.find('#validation_constraint_id').select2({
                         placeholder: "Select a Constraint",
                         allowClear: true,
                         data: dados
@@ -386,22 +305,46 @@
                 }
             });
 
-            li.find('#datacolumnconstraint_id').val(id);
-            li.find('#column_id').val(column_id);
-            li.find('#column_name').text(column_name);
-            li.find('#type_name').text(type_name);
-            li.find('#argument').val('');
+            li_form.find('#datacolumnconstraint_id').val(id);
+            li_form.find('#column_id').val(column_id);
+            li_form.find('#column_name').text(column_name);
+            li_form.find('#type_name').text(type_name);
+            li_form.find('#argument').val('');
 
-
-            li.removeClass('hidden');
+            li_form.removeClass('hidden');
             button.addClass('hidden');
+
         });
 
-        $("form.addDataColumnConstraintForm").submit( function(event){
+        $(document).on('click', '.cancelSaveDataColumnConstraintButton', function (event) {
+            var button = $(this);
+
+            var typeform = button.data('typeform');
+            var id = button.data('id');
+
+
+            if (typeform == 'create'){
+                var button_add = $("#button_add_constraint_to_column_"+id)
+                var li_form = $("#form_create_constraint_"+id)
+                li_form.remove();
+                button_add.removeClass('hidden');
+            }
+            else if (typeform == 'edit'){
+                var li_show = $("#show_constraint_to_columnconstraint_"+id)
+                var li_form = $("#form_edit_constraint_"+id)
+                li_form.remove();
+                li_show.removeClass('hidden');
+            }
+
+        });
+
+        $(document).on('submit','.saveDataColumnConstraintForm', function(event){
             var form = $(this);
 
-            var id = form.find('input[name=column_id]').val();
             form.parent().find('div.overlay').removeClass('hidden');
+
+            var column_id = form.find('input[name=column_id]').val();
+            var constraint_id = form.find('input[name=datacolumnconstraint_id]').val();
 
 
             $.ajax({
@@ -417,10 +360,25 @@
 
                 }
                 else if ( data.result == 'saved'){
-                    form.parent().parent().addClass('hidden');
-                    $.template( "constraintTemplate", constraintTemplate );
-                    $.tmpl( "constraintTemplate", data
-                    ).appendTo( "#constraints_list_column_"+id );
+                    if(constraint_id){
+                        $("#show_constraint_to_columnconstraint_"+constraint_id).remove();
+
+                        $.template( "constraintTemplate", constraintTemplate );
+                        $.tmpl( "constraintTemplate", data
+                        ).insertBefore( "#form_edit_constraint_"+constraint_id );
+
+                        $("#form_edit_constraint_"+constraint_id).remove();
+                    }
+                    else{
+
+                        $.template( "constraintTemplate", constraintTemplate );
+                        $.tmpl( "constraintTemplate", data
+                        ).appendTo( "#constraints_list_column_"+column_id );
+
+                        $("#form_create_constraint_"+column_id).remove();
+
+                        $("#button_add_constraint_to_column_"+column_id).removeClass('hidden');
+                    }
                 }
 
             });
@@ -450,7 +408,6 @@
                     $("#show_constraint_to_columnconstraint_"+id).remove();
 
                     $.template( "constraintTemplate", constraintTemplate );
-
                     $.tmpl( "constraintTemplate", data
                     ).insertBefore( "#edit_constraint_to_columnconstraint_"+id );
 
@@ -460,82 +417,6 @@
             });
 
             event.preventDefault();
-        });
-
-        $(document).on('click', '.editDataColumnConstraintButton', function (event) {
-            var button = $(this);
-
-            var id = button.data('id');
-            var argument = button.data('argument');
-            var validation_constraint_id = button.data('validation-constraint-id');
-            var column_id = button.data('column-id');
-            var column_name = button.data('column-name');
-            var type_id = button.data('type-id');
-            var type_name = button.data('type-name');
-
-            $.template( "formTemplate", formTemplate );
-            $.tmpl( "formTemplate", { 'constraint_id' : id}
-            ).insertAfter( "#show_constraint_to_columnconstraint_"+id );
-
-            var li_edit = $("#edit_constraint_to_columnconstraint_"+id)
-            var li_show = $("#show_constraint_to_columnconstraint_"+id)
-
-            var dados = [];
-
-            $.ajax({
-                url: '/dataconstraintsfromtype/' + type_id,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    $.each(JSON.parse(data), function (index, item) {
-                        dados.push({id: item.pk, text: item.fields.name})
-                    });
-
-                    li_edit.find('#validation_constraint_id').select2({
-                        placeholder: "Select a Constraint",
-                        allowClear: true,
-                        data: dados
-                    }).val(validation_constraint_id).trigger('change');;
-                }
-            });
-
-            li_edit.find('#datacolumnconstraint_id').val(id);
-            li_edit.find('#column_id').val(column_id);
-            li_edit.find('#column_name').text(column_name);
-            li_edit.find('#type_name').text(type_name);
-            li_edit.find('#argument').val(argument);
-
-
-            li_edit.removeClass('hidden');
-            li_show.addClass('hidden');
-        });
-
-        $(document).on('click', '.cancelAddDataColumnConstraintButton', function (event) {
-            var button = $(this);
-
-            var column_id = button.data('column-id');
-
-
-            var li = $("#add_constraint_to_column_"+column_id)
-            var button_add = $("#button_add_constraint_to_column_"+column_id)
-
-
-            li.addClass('hidden');
-            button_add.removeClass('hidden');
-        });
-
-        $(document).on('click', '.cancelEditDataColumnConstraintButton', function (event) {
-            var button = $(this);
-
-            var id = button.data('id');
-
-
-            var li_edit = $("#edit_constraint_to_columnconstraint_"+id)
-            var li_show = $("#show_constraint_to_columnconstraint_"+id)
-
-
-            li_edit.addClass('hidden');
-            li_show.removeClass('hidden');
         });
 
     </script>

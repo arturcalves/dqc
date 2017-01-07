@@ -8,7 +8,9 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Data Set Evaluation</li>
+        <li><a href="{% url 'dataset_list' %}">Data Set</a></li>
+        <li class="active">Evaluation</li>
+
     </ol>
 {% endblock %}
 
@@ -62,7 +64,43 @@
                 </div>
             </div>
         </div>
-    <div class="col-md-7">
+        <div class="col-md-7">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">10 Latest Evaluations</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Date</th>
+                            <th>Problems</th>
+                            <th>View Details</th>
+                        </tr>
+                        {% for e in evaluations %}
+                        <tr>
+                            <td>{{ e.started_at }}</td>
+                            <td style="text-align: center">{{ e.found_problems }}</td>
+                            <td><a class="btn btn-sm btn-default" href="{% url 'evaluation_view'  dataset.id e.id %}">
+                                <i class="fa fa-file-text-o"></i> View</a></td>
+
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-6">
         <div class="box box-danger">
                 <div class="box-header with-border">
                     <h3 class="box-title">Last Evaluation - DataSet's Problems per Tables</h3>
@@ -91,9 +129,6 @@
                 </div>
             </div>
     </div>
-    </div>
-
-    <div class="row">
         <div class="col-md-6">
             <div class="box box-danger">
                 <div class="box-header with-border">
@@ -110,14 +145,12 @@
                 <div class="box-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th>Table Name</th>
-                            <th>Column Name</th>
+                            <th>Table Name > Column Description</th>
                             <th>Problems</th>
                         </tr>
                         {% for p in problems_per_column %}
                         <tr>
-                            <td>{{ p.0 }}</td>
-                            <td>{{ p.1 }}</td>
+                            <td>{{ p.0 }} > {{ p.1 }}</td>
                             <td style="text-align: center">{{ p.2 }}</td>
                         </tr>
                         {% endfor %}
@@ -234,25 +267,29 @@
             var PieData = [
                 {
                     label: "{{ problems_per_quality_dimension.0.0 }}",
-                    value: {{ problems_per_quality_dimension.0.1 }},
+                    //value: {{ problems_per_quality_dimension.0.1 }},
+                    value: 23,
                     color: "#f56954",
                     highlight: "#f56954"
                 },
                 {
                     label: "{{ problems_per_quality_dimension.1.0 }}",
-                    value: {{ problems_per_quality_dimension.1.1 }},
+                    //value: {{ problems_per_quality_dimension.1.1 }},
+                    value: 32,
                     color: "#00a65a",
                     highlight: "#00a65a"
                 },
                 {
                     label: "{{ problems_per_quality_dimension.2.0 }}",
-                    value: {{ problems_per_quality_dimension.2.1 }},
+                    //value: {{ problems_per_quality_dimension.2.1 }},
+                    value: 45,
                     color: "#3c8dbc",
                     highlight: "#3c8dbc"
                 },
                 {
                     label: "Without Errors",
-                    value: {% if problems_per_quality_dimension.0.1 == 0 and problems_per_quality_dimension.1.1 == 0 and problems_per_quality_dimension.2.1 == 0  %} 100 {% else %} 0 {% endif %},
+                    //value: {% if problems_per_quality_dimension.0.1 == 0 and problems_per_quality_dimension.1.1 == 0 and problems_per_quality_dimension.2.1 == 0  %} 100 {% else %} 0 {% endif %},
+                    value: 0,
                     color: "#ecf0f5",
                     highlight: "#ecf0f5"
                 },

@@ -1,5 +1,6 @@
 from django.db import models
 from .util_classes.connection import *
+import json
 
 
 class DataQualityDimension(models.Model):
@@ -74,6 +75,7 @@ class DataTable(models.Model):
     description = models.TextField()
     data_set = models.ForeignKey(DataSet)
     created_at = models.DateTimeField(auto_now_add=True)
+    data_column_identify = models.ForeignKey('DataColumn', null=True)
 
     def count_columns(self):
         return self.datacolumn_set.all().count()
@@ -116,6 +118,11 @@ class DataColumnConstraint(models.Model):
 class DataRecord(models.Model):
     data_table = models.ForeignKey(DataTable)
     record = models.TextField()
+
+    def get_value(self, column):
+        record_json = json.loads(self.record)
+        return record_json[column]
+
 
     def __str__(self):
         return self.data_table+'('+self.id+')'

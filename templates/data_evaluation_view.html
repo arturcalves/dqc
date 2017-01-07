@@ -1,0 +1,96 @@
+{% extends "template.html" %}
+{% load poll_extras %}
+
+
+{% block content-header %}
+    <h1>
+        Data Set Evaluation
+        <small> View Problems in Evaluation </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{% url 'dataset_list' %}">Data Set</a></li>
+        <li><a href="{% url 'evaluation_list' dataset.id %}">Evaluation</a></li>
+        <li class="active">View</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="callout callout-{% if message.tags %}{{ message.tags }}{% endif %}">
+                <h4>{{ message }}</h4>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">{{ table.name }} </h3>
+        </div>
+        <div class="box-body no-padding table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Descrição da Tabela</th>
+                    <th>Descrição do Identificador do Registro</th>
+                    <th>Identificador do Registro</th>
+                    <th>Coluna com Problema</th>
+                    <th>Valor da Coluna com Problema</th>
+                    <th>Problema</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for pro in problems %}
+                    <tr>
+                        <td>{{ pro.data_record.data_table.description }}</td>
+                        <td>{{ pro.data_column_constraint.data_column.data_table.data_column_identify.description }}</td>
+                        <td>{{ pro.data_record|record_column_value:pro.data_column_constraint.data_column.data_table.data_column_identify.name}}</td>
+                        <td>{{ pro.data_column_constraint.data_column.description }}</td>
+                        <td>{{ pro.data_record|record_column_value:pro.data_column_constraint.data_column.name}}</td>
+                        <td>{{ pro.message }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    {% for table in datatables %}
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">{{ table.name }} </h3>
+        </div>
+        <div class="box-body no-padding table-responsive">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Record</th>
+                    <th>Action</th>
+                </tr>
+                {% for tablename, records in datarecord_per_table %}
+                    {% if tablename == table.name  %}
+                        {% for r in records %}
+                            <tr>
+                                <td>{{ r.record }}</td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    {% endfor %}
+
+{% endblock %}

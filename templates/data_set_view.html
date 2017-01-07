@@ -72,7 +72,7 @@
                     <tr>
                         <td>{{ datatable.id }}</td>
                         <td>{{ datatable.name }}</td>
-                        <td>{{ datatable.description }}</td>
+                        <td><a style="border: 0px;" href="#" id="description" class="editable" data-type="text" data-pk="{{ datatable.id }}" data-url="{% url 'datatable_edit' %}" data-title="Enter description">{{ datatable.description }}</a></td>
                         <td>{{ datatable.count_columns }}</td>
                         <td>{{ datatable.count_constraints }}</td>
                         <td><a class="btn btn-default" href="{% url 'datatable_view'  datatable.id %}">
@@ -126,6 +126,9 @@
 
 {% block scripts %}
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('.editable').editable();
+        });
         $('#tableselect').select2({
             placeholder: "Select a Table",
             allowClear: true

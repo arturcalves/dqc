@@ -21,6 +21,8 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{% static 'dqc/dist/css/skins/_all-skins.min.css' %}">
 
+    <link href="{% static 'dqc/plugins/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet"/>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -88,6 +90,8 @@
 <script src="{%static 'dqc/plugins/select2/select2.full.min.js' %}"></script>
 <!-- Jquery-tmpl-->
 <script src="{%static 'dqc/plugins/jquery-tmpl/jquery.tmpl.min.js' %}"></script>
+<!-- X-Editable-->
+<script src="{%static 'dqc/plugins/bootstrap3-editable-1.5.1/bootstrap3-editable/js//bootstrap-editable.min.js' %}"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

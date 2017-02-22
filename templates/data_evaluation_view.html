@@ -32,7 +32,7 @@
             <h3 class="box-title">{{ table.name }} </h3>
         </div>
         <div class="box-body no-padding table-responsive">
-            <table class="table">
+            <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>Descrição da Tabela</th>
@@ -47,10 +47,10 @@
                 <tbody>
                 {% for pro in problems %}
                     <tr>
-                        <td>{{ pro.data_record.data_table.description }}</td>
-                        <td>{{ pro.data_column_constraint.data_column.data_table.data_column_identify.description }}</td>
+                        <td>{%  firstof pro.data_record.data_table.description pro.data_record.data_table.name %}</td>
+                        <td>{%  firstof pro.data_column_constraint.data_column.data_table.data_column_identify.description pro.data_column_constraint.data_column.data_table.data_column_identify.name %}</td>
                         <td>{{ pro.data_record|record_column_value:pro.data_column_constraint.data_column.data_table.data_column_identify.name}}</td>
-                        <td>{{ pro.data_column_constraint.data_column.description }}</td>
+                        <td>{%  firstof pro.data_column_constraint.data_column.description pro.data_column_constraint.data_column.name %}</td>
                         <td>{{ pro.data_record|record_column_value:pro.data_column_constraint.data_column.name}}</td>
                         <td>{{ pro.message }}</td>
                     </tr>
@@ -61,7 +61,7 @@
     </div>
 
 
-
+<!--
     {% for table in datatables %}
     <div class="box box-primary">
         <div class="box-header">
@@ -89,8 +89,8 @@
                 </tbody>
             </table>
         </div>
-        <!-- /.box-body -->
     </div>
     {% endfor %}
+-->
 
 {% endblock %}

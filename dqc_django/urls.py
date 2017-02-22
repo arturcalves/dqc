@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^datacolumnconstraint/ajaxsave$', views.datacolumnconstraint_ajaxsave, name="datacolumnconstraint_ajaxsave"),
 
     url(r'^dataconstraintsfromtype/(?P<id>\d+)/$', views.dataconstraintsfromtype, name="dataconstraintsfromtype"),
+    url(r'^datacolumnsfromtable/(?P<dataset_id>\d+)/(?P<datatable_name>\w+)/$', views.datacolumnsfromtable, name="datacolumnsfromtable"),
 
     url(r'^dataset/(?P<id>\d+)/evaluation/new$', views.evaluation_new, name="evaluation_new"),
     url(r'^dataset/(?P<id>\d+)/evaluation/$', views.evaluation_list, name="evaluation_list"),

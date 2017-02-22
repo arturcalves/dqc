@@ -111,7 +111,13 @@
                             <label for="description" class="">Table Description</label>
                             <input type="text" id="description" name="description" class="form-control">
                         </div>
+                        <div class="form-group">
+                            <label for="columnselect" class="">Column Identifier</label>
+                            <!-- Style in Line to fiz a bug: https://github.com/harvesthq/chosen/issues/92-->
+                            <select name="column" id="columnselect" class="form-control" style="width: 100%;">
 
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -133,5 +139,24 @@
             placeholder: "Select a Table",
             allowClear: true
         });
+
+        $( "#tableselect" ).change(function() {
+            table_id =  $(this).val();
+
+             $.ajax({
+                url: '/datacolumnsfromtable/{{ dataset.id }}/' + table_id + '/',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    selectcolumn = '<select name="column" id="columnselect" class="form-control" style="width: 100%;">';
+                    $.each(data, function(i,data) {
+                        selectcolumn +='<option value="'+data+'">'+data+'</option>';
+                    });
+                    selectcolumn += '</select>';
+                    $("#columnselect").html(selectcolumn);
+                }
+            });
+        });
+
     </script>
 {% endblock %}

@@ -73,7 +73,9 @@ def datatable_new(request):
                                     data_table=datatable,
                                     data_type=DataType.objects.get(name=column_type))
             datacolumn.save()
-
+            if datacolumn.name == request.POST.get("column", ""):
+                datatable.data_column_identify = datacolumn
+                datatable.save()
 
         messages.success(request, 'DataTable Inserted')
         return redirect('dataset_view', datatable.data_set.id)
@@ -135,6 +137,16 @@ def dataconstraintsfromtype(request, id):
     constraints = DataValidationConstraint.objects.filter(data_type=DataType.objects.get(id=id))
     constraints_serialized = serializers.serialize('json', constraints, fields='name')
     return JsonResponse(constraints_serialized, safe=False)
+
+
+def datacolumnsfromtable(request, dataset_id, datatable_name):
+    datatable = DataTable(name=datatable_name,
+                              data_set=DataSet.objects.get(id=dataset_id))
+    columns = []
+    for (column_name, column_type) in get_column_list(datatable):
+        columns += [(column_name)]
+    #columns_serialized = serializers.serialize('json', columns, fields='name')
+    return JsonResponse(columns, safe=False)
 
 
 def datacolumnconstraint_save(request):

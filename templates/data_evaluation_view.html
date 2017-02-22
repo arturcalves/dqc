@@ -56,7 +56,7 @@
                         <td>{{ pro.data_record|record_column_value:pro.data_column_constraint.data_column.data_table.data_column_identify.name}}</td>
                         <td>{%  firstof pro.data_column_constraint.data_column.description pro.data_column_constraint.data_column.name %}</td>
                         <td>{{ pro.data_record|record_column_value:pro.data_column_constraint.data_column.name}}</td>
-                        <td>{{ pro.message }}</td>
+                        <td>{%  firstof pro|problem_message pro.message %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

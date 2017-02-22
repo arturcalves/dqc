@@ -12,7 +12,7 @@ CONNECTION_DRIVER_CHOICES = (
 def get_column_type(type):
     if type in [str, 'character varying', 'text', 'varchar']:
         return 'String'
-    elif type in [int, float, 'integer', 'bigint', 'int', 'smallint', 'tinyint']:
+    elif type in [int, float, 'integer', 'bigint', 'int', 'smallint', 'tinyint', 'real']:
         return 'Number'
     elif type in ['date', 'timestamp', 'timestamp without time zone']:                                                                                                                                                                      
         return 'Date/Time'

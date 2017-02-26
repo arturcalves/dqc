@@ -6,6 +6,7 @@
         Data Set Evaluation
         <small> List Data Set Evaluation</small>
     </h1>
+    <h4 class="box-title">Data Set Name: {{ dataset.name }} <small>  {{ dataset.description }} </small></h4>
     <ol class="breadcrumb">
         <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{% url 'dataset_list' %}">Data Set</a></li>
@@ -16,7 +17,6 @@
 
 
 {% block content %}
-
 
     <div class="row">
         <div class="col-md-12">
@@ -68,7 +68,7 @@
         <div class="col-md-7">
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">10 Latest Evaluations</h3>
+                    <h3 class="box-title">Latest Evaluations</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -267,18 +267,22 @@
 
             var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
 
+
              var PieData = [
 
                         {
                     label: "{{ problems_per_quality_dimension.0.0 }}",
                     value: {{ problems_per_quality_dimension.0.1 }},
+                            value: 23,
                     color: "#f56954",
                     highlight: "#f56954"
+
                 },
 
                      {
                     label: "{{ problems_per_quality_dimension.1.0 }}",
-                    value: {{ problems_per_quality_dimension.1.1 }},
+                    value: {{ problems_per_quality_dimension.1.1 }} ,
+                         value: 32,
                     color: "#00a65a",
                     highlight: "#00a65a"
                 },
@@ -287,7 +291,8 @@
 
 {
                     label: "{{ problems_per_quality_dimension.2.0 }}",
-                    value: {{ problems_per_quality_dimension.2.1 }},
+                    value: 100 - {{ problems_per_quality_dimension.0.1 }} - {{ problems_per_quality_dimension.1.1 }},
+                    value: 45,
                     color: "#3c8dbc",
                     highlight: "#3c8dbc"
                 },
@@ -309,7 +314,7 @@
     animateScale: false,
     responsive: true,
     maintainAspectRatio: true,
-      tooltipTemplate :  "<%if (label){ %><%=label%>: <% } %> <%= value %> problems ",
+      tooltipTemplate :  "<%if (label){ %><%=label%>: <% } %> <%= value %>%",
       showTooltips: true,
       tooltipEvents: [],
       onAnimationComplete: function() {

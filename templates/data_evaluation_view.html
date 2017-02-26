@@ -7,6 +7,7 @@
         Data Set Evaluation
         <small> View Problems in Evaluation </small>
     </h1>
+    <h4 class="box-title">Data Set Name: {{ dataset.name }} <small>  {{ dataset.description }} </small></h4>
     <ol class="breadcrumb">
         <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{% url 'dataset_list' %}">Data Set</a></li>
@@ -45,6 +46,7 @@
                     <th>Coluna com Problema</th>
                     <th>Valor da Coluna com Problema</th>
                     <th>Problema</th>
+                    <th>Dimensão de Qualidade</th>
                 </tr>
                 </thead>
 
@@ -57,6 +59,7 @@
                         <td>{%  firstof pro.data_column_constraint.data_column.description pro.data_column_constraint.data_column.name %}</td>
                         <td>{{ pro.data_record|record_column_value:pro.data_column_constraint.data_column.name}}</td>
                         <td>{%  firstof pro|problem_message pro.message %}</td>
+                        <td>{{ pro.data_column_constraint.data_validation_constraint.data_quality_dimension.first.name }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

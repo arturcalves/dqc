@@ -1,3 +1,4 @@
+import math
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -214,11 +215,15 @@ def evaluation_list(request, id):
     problems_per_column = []
     if len(evaluations):
         last_evaluation = data_set.datasetevaluation_set.latest('finished_at')
+        problems_total = DataSetEvaluationProblem.objects.filter(
+                                                   data_set_evaluation_id=last_evaluation.id).count()
         for dqd in DataQualityDimension.objects.all().order_by('name'):
-            problems_per_quality_dimension += [[dqd.name,
-                                               DataSetEvaluationProblem.objects.filter(
+            problems_dimension = DataSetEvaluationProblem.objects.filter(
                                                    data_set_evaluation_id=last_evaluation.id,
-                                                   data_column_constraint__data_validation_constraint__data_quality_dimension=dqd.id).count()]]
+                                                   data_column_constraint__data_validation_constraint__data_quality_dimension=dqd.id).count()
+            percent_dimension = int(round((problems_dimension*100/problems_total) , 0))
+            problems_per_quality_dimension += [[dqd.name,
+                                               percent_dimension]]
 
         for dt in DataTable.objects.filter(data_set=data_set).order_by('name'):
             problems_per_table += [[dt.name,
